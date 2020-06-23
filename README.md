@@ -1,5 +1,5 @@
 # streamlit
-streamlit app to allow display of statistics distributions graphics, training set and test set accuracy and prediction of new iris parameters inputs 
+streamlit app to allow display of statistics distributions graphics from scikit learn iria dataset. Training set and test set accuracy are calculated and prediction of new iris parameters inputs from widget on the left side of the panels 
 Create Virtual Environment and install the following packages:
 pip install streamlit
 pip install pandas
