@@ -7,14 +7,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
-import pickle
-import os
-import sys
 
 sns.set_style('dark')
-
-file = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])), 'iris_clf.pkl')
-st.write(file)
 
 st.write("""
 # Simple Iris Flower Prediction App
@@ -103,15 +97,6 @@ clf = RandomForestClassifier()
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.33, random_state=42)
 clf.fit(X_train, y_train)
 
-try:
-    load_clf = pickle.load(open(file, "rb"))
-    st.write('iris_clf.pkl file already exist and the ML algorithm is {}'.format(load_clf))
-except (OSError, IOError) as e:
-    load_clf = 3
-    with open(file, 'wb') as f:
-        pickle.dump(clf, f)
-    st.write('iris_clf.pkl created')
-
 predictions = clf.predict(X_test)
 plt.scatter(y_test, predictions)
 plt.xlabel("true label")
@@ -140,16 +125,14 @@ plt.ylabel('True')
 # plt.show()
 st.pyplot()
 
-# load_clf = pickle.load(open('iris_clf.pkl', 'rb'))
-
 st.subheader("Accuracy on Training Set Data")
-st.write(f(load_clf.score(X_train, y_train)))
+st.write(f(clf.score(X_train, y_train)))
 
 st.subheader("Accuracy on Test Set Data")
-st.write(f(load_clf.score(X_test, y_test)))
+st.write(f(clf.score(X_test, y_test)))
 
-prediction = load_clf.predict(df_p)
-prediction_proba = load_clf.predict_proba(df_p)
+prediction = clf.predict(df_p)
+prediction_proba = clf.predict_proba(df_p)
 
 st.subheader('Class labels and their corresponding index number')
 df = pd.DataFrame(iris.target_names, columns=['Iris_Type'])
